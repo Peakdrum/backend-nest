@@ -24,8 +24,8 @@ export class UserPromotionsController {
 
   //create user promotion
   @Post()
-  async create(@Body() data: any): Promise<UserPromotion> {
-    return this.userPromotionsService.create(data);
+  async create(@Body() userPromotion: UserPromotion): Promise<UserPromotion> {
+    return this.userPromotionsService.create(userPromotion);
   }
 
   //update user

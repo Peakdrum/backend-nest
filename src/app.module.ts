@@ -6,12 +6,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { PromotionsModule } from './promotions/promotions.module';
 import { UserPromotionsModule } from './user-promotions/user-promotions.module';
+import { PromotionUsagesModule } from './promotion-usages/promotion-usages.module';
 
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     UsersModule,
+    PromotionsModule,
+    UserPromotionsModule,
+    PromotionUsagesModule,
     TypeOrmModule.forRoot({
       type: process.env.DB_TYPE as any,
       host: process.env.PG_HOST,
@@ -21,9 +25,7 @@ import { UserPromotionsModule } from './user-promotions/user-promotions.module';
       database: process.env.PG_DB,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
-    }),
-    PromotionsModule,
-    UserPromotionsModule,
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

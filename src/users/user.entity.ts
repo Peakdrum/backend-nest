@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { UserPromotion } from "src/user-promotions/user-promotion.entity";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 
 @Entity()
 export class User {
@@ -13,4 +14,7 @@ export class User {
 
     @Column()
     user_phone: string;
+
+    @OneToMany(()=>UserPromotion, userPromotion => userPromotion.user)
+    user_promotions: UserPromotion[]
 }

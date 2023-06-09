@@ -11,15 +11,20 @@ export class UsersService {
   ) {}
 
   async findAll(): Promise<User[]> {
-    return this.userRepository.find();
+    return this.userRepository.find({
+      relations:["user_promotions","user_promotions.promotion","user_promotions.promotion_usages"]
+  });
   }
 
   async findOne(user_id: number): Promise<User> {
-    return this.userRepository.findOne({ where: { user_id } });
+    return this.userRepository.findOne({ where: { user_id }, relations: {
+      user_promotions: true,
+    }, });
   }
 
   async create(user: Partial<User>): Promise<User> {
     const newuser = this.userRepository.create(user);
+    if(user.user_email && user.user_phone && user.user_name)
     return this.userRepository.save(newuser);
   }
 
